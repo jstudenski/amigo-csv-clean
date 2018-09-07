@@ -48,21 +48,37 @@ function myresolve(data) {
  //  console.log(data[3].body);
 
  data.forEach(entry => {
-  var n = entry.body.search('Date:');
-  console.log(n);
-    if (n >= 0) {
-      let tempArr = [];
-      let temp = entry.body.split('Date: '); // .split('To:');
-      tempArr.push(temp[0],temp[1]);
+
+    let tempArr = [];
+    tempArr.push(entry.body);
+    //tempArr = splitAtString('From:', tempArr);
+    tempArr = splitAtString('Date:', tempArr);
+    tempArr = splitAtString('To:', tempArr);
+    tempArr = splitAtString('Subject:', tempArr);
+    console.log(tempArr);
+
+  //   if (entry.body.search('To:') >= 0) {
+  //     console.log(tempArr[tempArr.length-1]);
+  //    // let temp = tempArr[(tempArr.length-1)].split('To: '); // .split('To:');
+  // //    tempArr.push(temp[0]);
+  //    // console.log(tempArr);
+  //   }
 
 
- //     tempArr.push(entry.body.split('Date:')[0], entry.body.split('Date:')[1]);
-    //  NewArray[1] = NewArray[1].split('To:');
-     // NewArray = NewArray[1].split('To:');
-   //   newNew = entry.body.split('To:');
-      console.log(tempArr)
+  });
+
+
+  function splitAtString(str, arr){
+    // console.log(arr);
+    if (arr[arr.length-1].search(str) >= 0) {
+      let temp = arr[arr.length-1].split(str); // .split('To:');
+      arr[arr.length-1] = temp[0]
+      arr.push(temp[1]);
+      return arr;
+    } else {
+      return arr;
     }
-  })
+  }
 
 
 
