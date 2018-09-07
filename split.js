@@ -7,17 +7,20 @@ function readFile(srcPath) {
   return new Promise(function (resolve, reject) {
     let myArr = [];
     let tempObj = {};
-    const file =  fs.createReadStream('./expenses.csv')
+    const file =  fs.createReadStream('./communication.csv')
 
   .pipe(parse())
   .on('data', function (data) {
     // console.log(;
+    // console.log(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9])
     if (data[1] !== ''){
 
      // tempObj =
       myArr.push({
         amigo: data[0],
-        comnum: data[1]
+        comnum: data[1],
+        body: data[2],
+        // three: data[3]
       })
     }
 
@@ -40,7 +43,31 @@ readFile('./expenses.csv');
 function myresolve(data) {
   // console.log(data.column);
 
-  console.log(data.length);
+  // console.log(data[1].body);
+  // console.log(data[2].body);
+ //  console.log(data[3].body);
+
+ data.forEach(entry => {
+  var n = entry.body.search('Date:');
+  console.log(n);
+    if (n >= 0) {
+      let tempArr = [];
+      let temp = entry.body.split('Date: '); // .split('To:');
+      tempArr.push(temp[0],temp[1]);
+
+
+ //     tempArr.push(entry.body.split('Date:')[0], entry.body.split('Date:')[1]);
+    //  NewArray[1] = NewArray[1].split('To:');
+     // NewArray = NewArray[1].split('To:');
+   //   newNew = entry.body.split('To:');
+      console.log(tempArr)
+    }
+  })
+
+
+
+
+
   // data.filter(function(item) {
   //   console.log(item.comnum);
   // })
