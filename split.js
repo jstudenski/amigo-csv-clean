@@ -34,9 +34,32 @@ function readFile(srcPath) {
 
 readFile('./expenses.csv');
 
+emails = [];
 function myresolve(data) {
 
  data.forEach(entry => {
+
+  let tempEmails = entry.body.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+
+  // console.log(tempEmails)
+  // console.log('$')
+
+  if (tempEmails !== null ) {
+    let temp = tempEmails.forEach(address => {
+      if (emails.indexOf(address) == -1) {
+        emails.push(address);
+        console.log(address);
+      }
+    });
+  }
+
+  // if (emails.indexOf(tempEmails) == -1) {
+  //   emails.push(tempEmails);
+  //   console.log(emails);
+  // }
+  // // console.log()
+    // return text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+
 
     let tempArr = [];
     tempArr.push(entry.body);
@@ -55,7 +78,7 @@ function myresolve(data) {
     tempArr.unshift(shiftOff[1]);
     tempArr.unshift(shiftOff[0]);
 
-    console.log(tempArr);
+ ///   console.log(tempArr);
 
   });
 
